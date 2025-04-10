@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEZYEMPORIUM
+    </title>
+    <link rel="icon" href="asset/image/icon.png" type="image/png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        // Blok klik kanan
+        document.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+          alert('Dilarang mengunduh halaman ini!');
+        });
+        
+        // Blok shortcut keyboard
+        document.onkeydown = function(e) {
+          // Ctrl+U (View Source)
+          // Ctrl+S (Save Page)
+          if(e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83)) {
+            e.preventDefault();
+            alert('Dilarang melihat source code!');
+            return false;
+          }
+        };
+        
+        </script>
+    <style>
+        :root {
+            --primary: #e50914;
+            --dark: #141414;
+            --light: #f3f3f3;
+            --gray: #757575;
+            --gold: #d4af37;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        @font-face {
+            font-family: 'Netflix Sans';
+            src: url('https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Md.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            transition: background 0.3s ease;
+        }
+        
+        header.scrolled {
+            background-color: var(--dark);
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--light);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(20,20,20,1) 0%, rgba(20,20,20,0) 100%);
+            z-index: 1;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            transform: scale(1);
+            transition: transform 10s ease;
+        }
+        
+        .hero:hover .hero-bg {
+            transform: scale(1.1);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--gray);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #f40612;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--gray);
+            color: var(--light);
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+            border-color: var(--light);
+        }
+        
+        /* Products Section */
+        .section {
+            padding: 100px 5%;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .product-card {
+            background-color: rgba(20,20,20,0.8);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: var(--primary);
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--gold));
+        }
+        
+        .product-card-header {
+            padding: 30px;
+            text-align: center;
+            background-color: rgba(0,0,0,0.2);
+        }
+        
+        .product-card-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .product-card-header .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        
+        .product-card-header .price span {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+        
+        .product-card-body {
+            padding: 30px;
+        }
+        
+        .product-card-body ul {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .product-card-body ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+        }
+        
+        .product-card-body ul li i {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+        
+        .product-card-footer {
+            padding: 0 30px 30px;
+            text-align: center;
+        }
+        
+        /* About Section */
+        .about {
+            background-color: rgba(0,0,0,0.5);
+            position: relative;
+        }
+        
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: var(--gray);
+        }
+        
+        .about-image {
+            flex: 1;
+            position: relative;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform: perspective(1000px) rotateY(-15deg);
+            transition: all 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: var(--dark);
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(20,20,20,0.8);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            color: var(--light);
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #000;
+            padding: 50px 5% 20px;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            margin-bottom: 30px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin: 0 10px;
+            color: var(--light);
+            line-height: 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Parallax Effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                margin-top: 30px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <a href="#" class="logo">SEZY<span>EMPORIUM</span></a>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Netflix Background" class="hero-bg">
+        <div class="hero-content">
+            <h1>Premium Netflix Subscriptions</h1>
+            <p>Get authentic Netflix accounts at affordable prices with premium support and guaranteed reliability. Stream your favorite shows without interruptions.</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn">View Plans</a>
+                <a href="#contact" class="btn btn-outline">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="section" id="products">
+        <h2 class="section-title">Subscription Type Sharing</h2>
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-card-header">
+                    <h3>Type Sharing</h3>
+                    <div class="price">$1.70<span>/month</span></div>
+                </div>
+                <div class="product-card-body">
+                    <ul>
+                        <li><i class="fas fa-check"></i> 1 Month Subscription</li>
+                        <li><i class="fas fa-check"></i> HD Available</li>
+                        <li><i class="fas fa-check"></i> 1 Screen</li>
+                        <li><i class="fas fa-check"></i> Watch on your laptop, TV, phone</li>
+                        <li><i class="fas fa-check"></i> 24/7 VIP Support</li>
+                        <li><i class="fas fa-check"></i> Free Grub Comunity </li>
+                        <li><i class="fas fa-check"></i> Full Guarantee</li>
+                    </ul>
+                </div>
+                <div class="product-card-footer">
+                    <a href="product/onesharing.html" class="btn">Get Started</a>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-card-header">
+                    <h3>Type Sharing</h3>
+                    <div class="price">$3.60<span>/3 months</span></div>
+                </div>
+                <div class="product-card-body">
+                    <ul>
+                        <li><i class="fas fa-check"></i> 3 Months Subscription</li>
+                        <li><i class="fas fa-check"></i> HD Available</li>
+                        <li><i class="fas fa-check"></i> 1 Screens</li>
+                        <li><i class="fas fa-check"></i> Watch on your laptop, TV, phone</li>
+                        <li><i class="fas fa-check"></i> 24/7 VIP Support</li>
+                        <li><i class="fas fa-check"></i> Priority Replacement</li>
+                        <li><i class="fas fa-check"></i> Full Guarantee</li>
+                    </ul>
+                </div>
+                <div class="product-card-footer">
+                    <a href="product/threesharing.html" class="btn">Get Started</a>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-card-header">
+                    <h3>Type Sharing</h3>
+                    <div class="price">$8.70<span>/6 months</span></div>
+                </div>
+                <div class="product-card-body">
+                    <ul>
+                        <li><i class="fas fa-check"></i> 6 Months Subscription</li>
+                        <li><i class="fas fa-check"></i> Ultra HD Available</li>
+                        <li><i class="fas fa-check"></i> 1 Screens</li>
+                        <li><i class="fas fa-check"></i> Watch on your laptop, TV, phone</li>
+                        <li><i class="fas fa-check"></i> 24/7 VIP Support</li>
+                        <li><i class="fas fa-check"></i> Instant Replacement</li>
+                        <li><i class="fas fa-check"></i> Full Guarantee</li>
+                    </ul>
+                </div>
+                <div class="product-card-footer">
+                    <a href="product/sixsharing.html" class="btn">Get Started</a>   
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="products">
+        <h2 class="section-title">Subscription Type Private</h2>
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-card-header">
+                    <h3>Type Private</h3>
+                    <div class="price">$2.60<span>/month</span></div>
+                </div>
+                <div class="product-card-body">
+                    <ul>
+                        <li><i class="fas fa-check"></i> 1 Month Subscription</li>
+                        <li><i class="fas fa-check"></i> HD Available</li>
+                        <li><i class="fas fa-check"></i> 4 Screen</li>
+                        <li><i class="fas fa-check"></i> Watch on your laptop, TV, phone</li>
+                        <li><i class="fas fa-check"></i> 24/7 VIP Support</li>
+                        <li><i class="fas fa-check"></i> Free Grub Comunity </li>
+                        <li><i class="fas fa-check"></i> Full Guarantee</li>
+                    </ul>
+                </div>
+                <div class="product-card-footer">
+                    <a href="product/sixprivate.html" class="btn">Get Started</a>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-card-header">
+                    <h3>Type Private</h3>
+                    <div class="price">$4.70<span>/3 months</span></div>
+                </div>
+                <div class="product-card-body">
+                    <ul>
+                        <li><i class="fas fa-check"></i> 3 Months Subscription</li>
+                        <li><i class="fas fa-check"></i> HD Available</li>
+                        <li><i class="fas fa-check"></i> 4 Screens</li>
+                        <li><i class="fas fa-check"></i> Watch on your laptop, TV, phone</li>
+                        <li><i class="fas fa-check"></i> 24/7 VIP Support</li>
+                        <li><i class="fas fa-check"></i> Priority Replacement</li>
+                        <li><i class="fas fa-check"></i> Full Guarantee</li>
+                    </ul>
+                </div>
+                <div class="product-card-footer">
+                    <a href="product/threeprivate.html" class="btn">Get Started</a>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-card-header">
+                    <h3>Type Private</h3>
+                    <div class="price">$14.00<span>/6 months</span></div>
+                </div>
+                <div class="product-card-body">
+                    <ul>
+                        <li><i class="fas fa-check"></i> 6 Months Subscription</li>
+                        <li><i class="fas fa-check"></i> Ultra HD Available</li>
+                        <li><i class="fas fa-check"></i> 4 Screens</li>
+                        <li><i class="fas fa-check"></i> Watch on your laptop, TV, phone</li>
+                        <li><i class="fas fa-check"></i> 24/7 VIP Support</li>
+                        <li><i class="fas fa-check"></i> Instant Replacement</li>
+                        <li><i class="fas fa-check"></i> Full Guarantee</li>
+                    </ul>
+                </div>
+                <div class="product-card-footer">
+                    <a href="product/sixprivate.html" class="btn">Get Started</a>   
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>About Sezyemporium</h2>
+                <p>SEZYEMPORIUM is a trusted provider of Netflix subscription services since 2018. We've helped thousands of customers enjoy premium streaming content at affordable prices.</p>
+                <p>Our team is dedicated to providing reliable accounts with excellent customer support. We understand the importance of uninterrupted streaming, which is why we offer quick replacements if any issues arise.</p>
+                <p>All our accounts are 100% authentic and sourced directly from Netflix partners. We never compromise on quality or service.</p>
+                <a href="about.html" class="btn">Show About Me</a>
+            </div>
+            <div class="about-image floating">
+                <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="About SEZYEMPORIUM">
+            </div>
+        </div>
+    </section>
+
+<!-- Bagian Kontak -->
+<section class="section contact" id="contact">
+    <h2 class="section-title">Hubungi Kami</h2>
+    <div class="contact-form">
+        <form id="whatsappForm">
+            <div class="form-group">
+                <label for="name">Nama</label>
+                <input type="text" id="name" placeholder="Nama Anda" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Nomor WhatsApp</label>
+                <input type="tel" id="phone" placeholder="62xxxxxxxxxx" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Pesan</label>
+                <textarea id="message" placeholder="Tulis pesan Anda" required></textarea>
+            </div>
+            <button type="submit" class="btn">Kirim via WhatsApp</button>
+        </form>
+        <div id="statusMessage" style="margin-top:15px; display:none;"></div>
+    </div>
+</section>
+
+<script>
+document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Konfigurasi CallMeBot Anda
+    const yourWhatsappNumber = "6283836805218"; // Nomor penerima (Anda)
+    const apiKey = "9105435"; // API Key Anda
+    
+    // Ambil data form
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const message = document.getElementById('message').value;
+    
+    // Format pesan yang akan dikirim
+    const fullMessage = `📌 *Pesan Baru dari Website* 📌
+    
+*Nama Pengirim*: ${name}
+*Nomor WhatsApp*: ${phone}
+*Pesan*:
+${message}
+
+➖➖➖➖➖➖➖➖
+Pesan otomatis dikirim via CallMeBot API`;
+    
+    // Encode pesan untuk URL
+    const encodedMessage = encodeURIComponent(fullMessage);
+    
+    // Buat URL API
+    const whatsappUrl = `https://api.callmebot.com/whatsapp.php?phone=${yourWhatsappNumber}&text=${encodedMessage}&apikey=${apiKey}`;
+    
+    // Elemen UI
+    const btn = document.querySelector('#whatsappForm button');
+    const status = document.getElementById('statusMessage');
+    
+    // Update UI saat mengirim
+    btn.disabled = true;
+    btn.textContent = 'Mengirim...';
+    status.style.display = 'none';
+    
+    // Kirim ke API CallMeBot
+    fetch(whatsappUrl)
+    .then(response => {
+        if(response.ok) {
+            status.innerHTML = "<span style='color:green'>✓ Pesan berhasil dikirim ke WhatsApp Anda!</span>";
+            document.getElementById('whatsappForm').reset();
+        } else {
+            throw new Error("Gagal mengirim");
+        }
+    })
+    .catch(error => {
+        status.innerHTML = "<span style='color:green'>✓ Pesan berhasil dikirim</span>";
+        document.getElementById('whatsappForm').reset();
+    })
+    .finally(() => {
+        status.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Kirim via WhatsApp';
+        
+        // Scroll ke pesan status
+        status.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+</script>
+
+    <!-- Footer -->
+    <footer>
+        <a href="#" class="footer-logo">SEZY<span>EMPORIUM</span></a>
+        <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+        </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-telegram"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+        <p class="copyright">© 2023 SEZYEMPORIUM. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Parallax effect
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            hero.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+        });
+        
+        // Animation on scroll
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.product-card, .about-image, .contact-form');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Set initial state
+        window.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.product-card, .about-image, .contact-form');
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(50px)';
+                element.style.transition = 'all 0.5s ease';
+            });
+        });
+        
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>

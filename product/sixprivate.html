@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEZYEMPORIUM | PRODUCT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="asset/image/icon.png" type="image/png">
+
+    <style>
+        :root {
+            --primary: #e50914;
+            --dark: #141414;
+            --light: #f3f3f3;
+            --gray: #757575;
+            --gold: #d4af37;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        @font-face {
+            font-family: 'Netflix Sans';
+            src: url('https://assets.nflxext.com/ffe/siteui/fonts/netflix-sans/v3/NetflixSans_W_Md.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background-color: var(--dark);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--light);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Product Hero */
+        .product-hero {
+            padding: 180px 5% 100px;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            background: linear-gradient(135deg, rgba(20,20,20,1) 0%, rgba(87,9,12,0.6) 100%);
+        }
+        
+        .product-image {
+            flex: 1;
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .product-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.5);
+            transform: rotateY(-10deg);
+            transition: transform 0.5s;
+        }
+        
+        .product-image:hover img {
+            transform: rotateY(0deg);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: linear-gradient(45deg, var(--primary), var(--gold));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 2;
+        }
+        
+        .product-details {
+            flex: 1;
+        }
+        
+        .product-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .product-price {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+        }
+        
+        .product-price span {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+        
+        .product-description {
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: var(--gray);
+        }
+        
+        .product-features {
+            margin-bottom: 40px;
+        }
+        
+        .product-features h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .product-features ul {
+            list-style: none;
+        }
+        
+        .product-features ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+        }
+        
+        .product-features ul li i {
+            color: var(--primary);
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: #f40612;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--gray);
+            color: var(--light);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+            border-color: var(--light);
+        }
+        
+        /* Product Tabs */
+        .product-tabs {
+            padding: 0 5% 100px;
+        }
+        
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .tab-btn {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            color: var(--gray);
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .tab-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .tab-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: var(--gray);
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 5%;
+            background-color: rgba(0,0,0,0.3);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: rgba(20,20,20,0.8);
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+        }
+        
+        .testimonial-rating {
+            color: var(--gold);
+            margin-top: 5px;
+        }
+        
+        .testimonial-content {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 5%;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(20,20,20,0.9) 0%, rgba(87,9,12,0.7) 100%);
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #000;
+            padding: 50px 5% 20px;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            margin-bottom: 30px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin: 0 10px;
+            color: var(--light);
+            line-height: 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-hero {
+                flex-direction: column;
+                padding-top: 150px;
+            }
+            
+            .product-title {
+                font-size: 2.2rem;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+    <script>
+        // Blok klik kanan
+        document.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+          alert('Dilarang mengunduh halaman ini!');
+        });
+        
+        // Blok shortcut keyboard
+        document.onkeydown = function(e) {
+          // Ctrl+U (View Source)
+          // Ctrl+S (Save Page)
+          if(e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83)) {
+            e.preventDefault();
+            alert('Dilarang melihat source code!');
+            return false;
+          }
+        };
+        </script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">SEZY<span>EMPORIUM</span></a>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#products">Products</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Product Hero Section -->
+    <section class="product-hero">
+        <div class="product-image">
+            <span class="product-badge">Most Popular</span>
+            <img src="../asset/image/POSTER NETFLIX 1.jpg" alt="Netflix Premium Plan">
+        </div>
+        <div class="product-details">
+            <h1 class="product-title">Netflix 6 Month Private </h1>
+            <div class="product-price">$14.00 <span>/6 months</span></div>
+            <p class="product-description">Experience the ultimate streaming with our Premium Netflix plan. Get 6 months of uninterrupted access to all Netflix content in Ultra HD quality </p>
+            
+            <div class="product-features">
+                <h3>Plan Features:</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i> 6 Months Subscription</li>
+                    <li><i class="fas fa-check"></i> Ultra HD Available</li>
+                    <li><i class="fas fa-check"></i> 4 Screens</li>
+                    <li><i class="fas fa-check"></i> Watch on your laptop, TV, phone</li>
+                    <li><i class="fas fa-check"></i> 24/7 VIP Support</li>
+                    <li><i class="fas fa-check"></i> Instant Replacement</li>
+                    <li><i class="fas fa-check"></i> Full Guarantee</li>
+                </ul>
+            </div>
+            
+            <div class="product-actions">
+                <a href="#buy-now" class="btn">Buy Now</a>
+                <a href="../index.html#products" class="btn btn-outline">Compare Plans</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Tabs -->
+    <section class="product-tabs">
+        <div class="tabs-header">
+            <button class="tab-btn active" data-tab="details">Details</button>
+            <button class="tab-btn" data-tab="how-it-works">How It Works</button>
+            <button class="tab-btn" data-tab="faq">FAQ</button>
+        </div>
+        
+        <div class="tab-content active" id="details">
+            <h3>Plan Details</h3>
+            <p>Our Netflix Premium Plan offers the complete Netflix experience at an unbeatable price. You'll receive a genuine Netflix account with full access to all content, including Netflix originals, movies, TV shows, and documentaries.</p>
+            <p>All accounts come with our premium support guarantee. If you experience any issues with your account, we'll provide a replacement immediately.</p>
+        </div>
+        
+        <div class="tab-content" id="how-it-works">
+            <h3>How It Works</h3>
+            <p>1. <strong>Purchase:</strong> Select your plan and complete the payment through our secure checkout.</p>
+            <p>2. <strong>Receive Account:</strong> You'll receive the Netflix account credentials instantly via email and WhatsApp.</p>
+            <p>3. <strong>Login & Enjoy:</strong> Use the provided credentials to log in to Netflix on any device and start streaming.</p>
+            <p>4. <strong>Support:</strong> If you need any help, our support team is available 24/7 through WhatsApp and email.</p>
+        </div>
+        
+        <div class="tab-content" id="faq">
+            <h3>Frequently Asked Questions</h3>
+            <p><strong>Q: Is this a shared account?</strong><br>
+            A: Yes, these are premium shared accounts. However, we limit the number of users per account to ensure optimal performance.</p>
+            
+            <p><strong>Q: What if the account stops working?</strong><br>
+            A: We offer instant replacements for any account issues during your subscription period.</p>
+            
+            <p><strong>Q: Can I change the password?</strong><br>
+            A: No, these are shared accounts so the password cannot be changed. However, we guarantee the account will work for the duration you purchased.</p>
+            
+            <p><strong>Q: What payment methods do you accept?</strong><br>
+            A: We accept all major credit cards, PayPal, bank transfers, and various e-wallets.</p>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J." class="testimonial-avatar">
+                    <div>
+                        <div class="testimonial-author">Sarah J.</div>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    "I've been using Sezyemporium for over a year now and never had any issues. The premium plan is perfect for my family - we can all watch simultaneously on different devices."
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael T." class="testimonial-avatar">
+                    <div>
+                        <div class="testimonial-author">Michael T.</div>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    "The 6-month premium plan saved me so much money compared to paying monthly. When I had a login issue, support responded in minutes with a new account. Highly recommended!"
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya K." class="testimonial-avatar">
+                    <div>
+                        <div class="testimonial-author">Priya K.</div>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    "Great service! The UHD quality is amazing on my 4K TV. I was skeptical at first but after 3 months with no problems, I'm a believer. Will renew when my subscription ends."
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="buy-now">
+        <h2 class="cta-title">Ready to Start Streaming?</h2>
+        <p class="cta-subtitle">Join thousands of satisfied customers enjoying premium Netflix at a fraction of the regular price. Your account will be delivered instantly after payment.</p>
+        <a href="#" class="btn" style="padding: 15px 60px; font-size: 1.2rem;">Get Netflix Premium Now</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <a href="index.html" class="footer-logo">SEZYEMPORIUM</a>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#products">Products</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#contact">Contact</a>
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+        </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-telegram"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+        <p class="copyright">© 2023 Sezyemporium. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Animation on scroll
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.product-image, .product-details, .testimonial-card');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Set initial state
+        window.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.product-image, .product-details, .testimonial-card');
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(50px)';
+                element.style.transition = 'all 0.5s ease';
+            });
+            
+            // Trigger animations for elements already in view
+            animateOnScroll();
+        });
+        
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
